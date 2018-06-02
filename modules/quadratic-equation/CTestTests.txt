@@ -1,0 +1,68 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a quadratic equation application"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} 10 20
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 4 arguments."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} aa bb cc out.txt
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Save_Found_Numbers_To_File
+    COMMAND ${APPLICATION} 2 10 3 out.txt
+)
+set_tests_properties (${prefix}_can_Save_Found_Numbers_To_File PROPERTIES
+    PASS_REGULAR_EXPRESSION "Successfully written to"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Error_If_File_Cannot_Be_Opened
+    COMMAND ${APPLICATION} 2 10 3 nonexistent:\\/
+)
+set_tests_properties (${prefix}_can_Print_Error_If_File_Cannot_Be_Opened PROPERTIES
+    PASS_REGULAR_EXPRESSION "Cannot open"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Zero_Quadratic_Coefficient
+    COMMAND ${APPLICATION} 0 10 3 out.txt
+)
+set_tests_properties (${prefix}_can_Detect_Zero_Quadratic_Coefficient PROPERTIES
+    PASS_REGULAR_EXPRESSION "Quadratic coefficient can not be equal zero"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_If_No_Real_Roots
+    COMMAND ${APPLICATION} 1 -2 2 out.txt
+)
+set_tests_properties (${prefix}_can_Detect_If_No_Real_Roots PROPERTIES
+    PASS_REGULAR_EXPRESSION "Quadratic equation has no real roots"
+    LABELS "${MODULE}")

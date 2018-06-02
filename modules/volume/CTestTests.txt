@@ -1,0 +1,101 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_No_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_No_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "Usage:"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Corresponding_Option
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Corresponding_Option PROPERTIES
+    PASS_REGULAR_EXPRESSION "Usage:"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Arguments
+    COMMAND ${APPLICATION} abra cadabra
+)
+set_tests_properties (${prefix}_can_Check_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "Usage:"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} -s pi
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Primitive_Type
+    COMMAND ${APPLICATION} -z 1
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Primitive_Type PROPERTIES
+    PASS_REGULAR_EXPRESSION "Usage:"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calculate_Sphere_Volume
+    COMMAND ${APPLICATION} -s 1
+)
+set_tests_properties (${prefix}_can_Calculate_Sphere_Volume PROPERTIES
+    PASS_REGULAR_EXPRESSION "Volume = 3.14159"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_cant_Calculate_Sphere_Volume_Negative_Radius
+    COMMAND ${APPLICATION} -s -3
+)
+set_tests_properties (${prefix}_cant_Calculate_Sphere_Volume_Negative_Radius PROPERTIES
+    PASS_REGULAR_EXPRESSION "Number can't be less then zero"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calculate_Cube_Volume
+    COMMAND ${APPLICATION} -b 4
+)
+set_tests_properties (${prefix}_can_Calculate_Cube_Volume PROPERTIES
+    PASS_REGULAR_EXPRESSION "Volume = 64"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_cant_Calculate_Cube_Volume_Negative_Width
+    COMMAND ${APPLICATION} -b -5
+)
+set_tests_properties (${prefix}_cant_Calculate_Cube_Volume_Negative_Width PROPERTIES
+    PASS_REGULAR_EXPRESSION "Number can't be less then zero"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Calculate_Cylinder_Volume
+    COMMAND ${APPLICATION} -c 1 2
+)
+set_tests_properties (${prefix}_can_Calculate_Cylinder_Volume PROPERTIES
+    PASS_REGULAR_EXPRESSION "Volume = 6.28319"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_cant_Calculate_Cylinder_Volume_Negative_Radius
+    COMMAND ${APPLICATION} -c -1 2
+)
+set_tests_properties (${prefix}_cant_Calculate_Cylinder_Volume_Negative_Radius PROPERTIES
+    PASS_REGULAR_EXPRESSION "Number can't be less then zero"
+    LABELS "${MODULE}")
+

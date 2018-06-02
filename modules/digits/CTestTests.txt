@@ -1,0 +1,60 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a digits application"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} 1 2 95
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 2 arguments."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} a out.txt
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong format or value is out of range"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Integer_Overflow
+    COMMAND ${APPLICATION} 99999999999999 out.txt
+)
+set_tests_properties (${prefix}_can_Detect_Integer_Overflow PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong format or value is out of range"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Save_Found_Numbers_To_File
+    COMMAND ${APPLICATION} 910 out.txt
+)
+set_tests_properties (${prefix}_can_Save_Found_Numbers_To_File PROPERTIES
+    PASS_REGULAR_EXPRESSION "Successfully written to"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Error_If_File_Cannot_Be_Opened
+    COMMAND ${APPLICATION} 910 Nonexistent:\\/
+)
+set_tests_properties (${prefix}_can_Print_Error_If_File_Cannot_Be_Opened PROPERTIES
+    PASS_REGULAR_EXPRESSION "Cannot open"
+    LABELS "${MODULE}")

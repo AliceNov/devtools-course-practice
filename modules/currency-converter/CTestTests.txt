@@ -1,0 +1,92 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a currency converter"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} 1 
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 2 arguments."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Value_Format
+    COMMAND ${APPLICATION} 1.a23 dollarToRouble
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Value_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong value format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Operation_Format
+    COMMAND ${APPLICATION} 5 lolkek
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Operation_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong operation format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Dollar_To_Rouble
+    COMMAND ${APPLICATION} 1 dollarToRouble
+)
+set_tests_properties (${prefix}_can_Dollar_To_Rouble PROPERTIES
+    PASS_REGULAR_EXPRESSION "1 USD = 60 RUB"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Rouble_To_Euro
+    COMMAND ${APPLICATION} 1123 roubleToEuro
+)
+set_tests_properties (${prefix}_can_Rouble_To_Euro PROPERTIES
+    PASS_REGULAR_EXPRESSION "1123 RUB = 14.9733 EUR"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Rouble_To_Dollar
+    COMMAND ${APPLICATION} 60 roubleToDollar
+)
+set_tests_properties (${prefix}_can_Rouble_To_Dollar PROPERTIES
+    PASS_REGULAR_EXPRESSION "60 RUB = 1 USD"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Euro_To_Rouble
+    COMMAND ${APPLICATION} 1 euroToRouble
+)
+set_tests_properties (${prefix}_can_Euro_To_Rouble PROPERTIES
+    PASS_REGULAR_EXPRESSION "1 EUR = 75 RUB"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Dollar_To_Euro
+    COMMAND ${APPLICATION} 1 dollarToEuro
+)
+set_tests_properties (${prefix}_can_Dollar_To_Euro PROPERTIES
+    PASS_REGULAR_EXPRESSION "1 USD = 0.8 EUR"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Euro_To_Dollar
+    COMMAND ${APPLICATION} 1 euroToDollar
+)
+set_tests_properties (${prefix}_can_Euro_To_Dollar PROPERTIES
+    PASS_REGULAR_EXPRESSION "1 EUR = 1.25 USD"
+    LABELS "${MODULE}")

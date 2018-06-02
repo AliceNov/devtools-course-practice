@@ -1,0 +1,116 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "Usage:"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} -l 1 2
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 7 arguments."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} -l 1 ip 2 3 1 2
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Unknown_Option
+    COMMAND ${APPLICATION} -garbage 1 1 2 3 1 2
+)
+set_tests_properties (${prefix}_can_Detect_Unknown_Option PROPERTIES
+    PASS_REGULAR_EXPRESSION "Unknown option"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Option
+    COMMAND ${APPLICATION} garbage 1 1 2 3 1 2
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Option PROPERTIES
+    PASS_REGULAR_EXPRESSION "Usage:"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Find_Angles
+    COMMAND ${APPLICATION} -a 1.2 1.3 1.4 1.5 1.6 1.8
+)
+set_tests_properties (${prefix}_can_Find_Angles PROPERTIES
+    PASS_REGULAR_EXPRESSION "angle 1 = 0.110657"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Find_Lengths
+    COMMAND ${APPLICATION} -l 1.2 1.3 1.4 1.5 1.6 1.8
+)
+set_tests_properties (${prefix}_Can_Find_Lengths PROPERTIES
+    PASS_REGULAR_EXPRESSION "length 1_2 = 0.282843"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Find_Inscribed_Radius
+    COMMAND ${APPLICATION} -r 1.2 1.3 1.4 1.5 1.6 1.8
+)
+set_tests_properties (${prefix}_can_Find_Inscribed_Radius PROPERTIES
+    PASS_REGULAR_EXPRESSION "Radius Inscribed Circle = 0.0155798"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Find_Circumscribed_Radius 
+    COMMAND ${APPLICATION} -R 1.2 1.3 1.4 1.5 1.6 1.8
+)
+set_tests_properties (${prefix}_Can_Find_Circumscribed_Radius PROPERTIES
+    PASS_REGULAR_EXPRESSION "Radius Circumscribed Circle = 1.63248"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Find_Square
+    COMMAND ${APPLICATION} -s 1.2 1.3 1.4 1.5 1.6 1.8
+)
+set_tests_properties (${prefix}_Can_Find_Square PROPERTIES
+    PASS_REGULAR_EXPRESSION "Square = 0.01"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Find_Perimeter
+    COMMAND ${APPLICATION} -p 1.2 1.3 1.4 1.5 1.6 1.8
+)
+set_tests_properties (${prefix}_Can_Find_Perimeter PROPERTIES
+    PASS_REGULAR_EXPRESSION "Perimeter = 1.28371"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Find_Barycenter 
+    COMMAND ${APPLICATION} -b 1.2 1.3 1.4 1.5 1.6 1.8
+)
+set_tests_properties (${prefix}_Can_Find_Barycenter PROPERTIES
+    PASS_REGULAR_EXPRESSION "Barycenter = <1.4, 1.53333>"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_Can_Find_Center_Inscribed
+    COMMAND ${APPLICATION} -c 1.2 1.3 1.4 1.5 1.6 1.8
+)
+set_tests_properties (${prefix}_Can_Find_Center_Inscribed PROPERTIES
+    PASS_REGULAR_EXPRESSION "Center Inscribed Circle = <1.64227, 1.80637>"
+    LABELS "${MODULE}")

@@ -1,0 +1,60 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is a number in words converter application"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Number_Of_Arguments
+    COMMAND ${APPLICATION} 1 2
+)
+set_tests_properties (${prefix}_can_Check_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Should be 1 argument."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format
+    COMMAND ${APPLICATION} pi
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong number format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Convert_Simple
+    COMMAND ${APPLICATION} 6
+)
+set_tests_properties (${prefix}_can_Convert_Simple PROPERTIES
+    PASS_REGULAR_EXPRESSION "Result: six"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Negative_Number
+    COMMAND ${APPLICATION} -27
+)
+set_tests_properties (${prefix}_can_Detect_Negative_Number PROPERTIES
+    PASS_REGULAR_EXPRESSION "Input error: number must be pozitive."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Large_Number
+    COMMAND ${APPLICATION} 1241242121
+)
+set_tests_properties (${prefix}_can_Detect_Large_Number PROPERTIES
+    PASS_REGULAR_EXPRESSION "Input error: number is too large for our converter."
+    LABELS "${MODULE}")

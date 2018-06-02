@@ -1,0 +1,100 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: invalid arguments"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Operation
+    COMMAND ${APPLICATION} -f 1 1 1
+)
+set_tests_properties (${prefix}_can_Check_Operation PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: invalid operation"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Too_Many_Arguments_1
+    COMMAND ${APPLICATION} -n 1 1 1 2
+)
+set_tests_properties (${prefix}_can_Detect_Too_Many_Arguments_1 PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: invalid arguments"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Too_Many_Arguments_2
+    COMMAND ${APPLICATION} -v 1 1 1 2
+)
+set_tests_properties (${prefix}_can_Detect_Too_Many_Arguments_2 PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: invalid arguments"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Of_Arguments
+    COMMAND ${APPLICATION} -d 1 1 1 2 2
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Of_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: invalid arguments"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_1
+    COMMAND ${APPLICATION} -n 1 1 pi
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_1 PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: wrong number format"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Number_Format_2
+    COMMAND ${APPLICATION} -d 1 1 1 2 2 pi
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Number_Format_2 PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: wrong number format"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Get_Correct_Norm
+    COMMAND ${APPLICATION} -n 0.0 -3.0 4.0
+)
+set_tests_properties (${prefix}_can_Get_Correct_Norm PROPERTIES
+    PASS_REGULAR_EXPRESSION "Norm = 5"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Get_Correct_Normalized_Vector
+    COMMAND ${APPLICATION} -v 0.0 -3.0 4.0
+)
+set_tests_properties (${prefix}_can_Get_Correct_Normalized_Vector PROPERTIES
+    PASS_REGULAR_EXPRESSION "Normalized vector = \\(0, -0.6, 0.8\\)"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Get_Correct_Cross_Product
+    COMMAND ${APPLICATION} -c 1 2 -3 3 -2 5
+)
+set_tests_properties (${prefix}_can_Get_Correct_Cross_Product PROPERTIES
+    PASS_REGULAR_EXPRESSION "Cross product = \\(4, -14, -8\\)"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Get_Correct_Dot_Product
+    COMMAND ${APPLICATION} -d 1 2 1 2 3 -4
+)
+set_tests_properties (${prefix}_can_Get_Correct_Dot_Product PROPERTIES
+    PASS_REGULAR_EXPRESSION "Dot product = 4"
+    LABELS "${MODULE}")

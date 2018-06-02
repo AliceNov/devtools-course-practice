@@ -1,0 +1,84 @@
+#############################################
+##### Testing
+#############################################
+
+set(prefix "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Run
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Run PROPERTIES
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Print_Help_Without_Arguments
+    COMMAND ${APPLICATION}
+)
+set_tests_properties (${prefix}_can_Print_Help_Without_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "This is leftist heap application"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Check_Too_Much_Arguments
+    COMMAND ${APPLICATION} merge "(2,3)" "(3,4)" 1 5
+)
+set_tests_properties (${prefix}_can_Check_Too_Much_Arguments PROPERTIES
+    PASS_REGULAR_EXPRESSION "ERROR: Too mush arguments."
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Operator
+    COMMAND ${APPLICATION} fee "(1,3)" "(4,5)"
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Operator PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong operation format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_First_Heap
+    COMMAND ${APPLICATION} merge "[3,4)" "(4,4)"
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_First_Heap PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong heap format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Detect_Wrong_Second_Heap
+    COMMAND ${APPLICATION} merge "(2,3)" "[5,4)"
+)
+set_tests_properties (${prefix}_can_Detect_Wrong_Second_Heap PROPERTIES
+    PASS_REGULAR_EXPRESSION "Wrong heap format!"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Merge_Two_Heap
+    COMMAND ${APPLICATION} merge "(7,2,4)" "(3,4,8)"
+)
+set_tests_properties (${prefix}_can_Merge_Two_Heap PROPERTIES
+    PASS_REGULAR_EXPRESSION "2 3 4 4 7 8"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Insert
+    COMMAND ${APPLICATION} insert "(1,3,5)" "(4)"
+)
+set_tests_properties (${prefix}_can_Insert PROPERTIES
+    PASS_REGULAR_EXPRESSION "1 3 4 5"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Get_Min_Key
+    COMMAND ${APPLICATION} minKey \(1,2,8,10\)
+)
+set_tests_properties (${prefix}_can_Get_Min_Key PROPERTIES
+    PASS_REGULAR_EXPRESSION "1"
+    LABELS "${MODULE}")
+
+add_test(
+    NAME ${prefix}_can_Delete_Min
+    COMMAND ${APPLICATION} deleteMin \(7,9,5\)
+)
+set_tests_properties (${prefix}_can_Delete_Min PROPERTIES
+    PASS_REGULAR_EXPRESSION "7 9"
+    LABELS "${MODULE}")
